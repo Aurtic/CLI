@@ -10,6 +10,10 @@
     "dist",
     ".env"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aurtic/CLI"
+  },
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
