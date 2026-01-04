@@ -1,6 +1,6 @@
 {
-  "name": "@aurtic/cli2",
-  "version": "0.0.1",
+  "name": "@aurtic/cli",
+  "version": "2.0.0",
   "description": "",
   "author": "",
   "private": false,
