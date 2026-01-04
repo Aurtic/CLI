@@ -1,5 +1,9 @@
 name: Publish to NPM
 
+permissions:
+  id-token: write  # Required for OIDC npm
+  contents: write
+
 on:
   release:
     types: [created]
