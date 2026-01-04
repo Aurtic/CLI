@@ -4,12 +4,17 @@
   "description": "",
   "author": "",
   "private": false,
-  "license": "UNLICENSED",
+  "license": "SEE LICENSE IN LICENSE",
   "bin": "dist/main.js",
   "files": [
     "dist",
     ".env"
   ],
+  "homepage": "https://github.com/Aurtic/CLI#readme",
+  "bugs": {
+    "url": "https://github.com/Aurtic/CLI/issues",
+    "email": "info@aurtic.com"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Aurtic/CLI"
