@@ -50,6 +50,33 @@ export class AuthenticationService implements OnModuleInit {
         return accessToken;
     }
 
+    async getAccessTokenByGithub(githubToken: string): Promise<string> {
+        const response = await fetch(`${this.configService.get('API_URI')}/v1/oauth/token`, {
+            method: 'POST',
+            body: new URLSearchParams({
+                grant_type: 'password',
+                code: `github:${githubToken}`,
+                username: 'github_actions',
+                password: githubToken,
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error(data.message);
+        }
+
+        const accessToken = data.access_token;
+
+        const configFilePath = this.getConfigFilePath();
+        fs.writeFileSync(configFilePath, JSON.stringify(data, null, 2));
+
+        return accessToken;
+    }
+
     async getAccessToken(): Promise<string> {
         return this.configService.getOrThrow('ACCESS_TOKEN');
     }

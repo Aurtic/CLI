@@ -8,7 +8,7 @@
   "bin": "dist/main.js",
   "files": [
     "dist",
-    ".env"
+    "env-varaibles"
   ],
   "homepage": "https://github.com/Aurtic/CLI#readme",
   "bugs": {

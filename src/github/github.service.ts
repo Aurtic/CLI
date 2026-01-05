@@ -5,8 +5,12 @@ import core from "@actions/core";
 export class GithubService {
 
     async retrieveGithubIDToken() {
-        let idToken = await core.getIDToken()
-        return idToken;
+        try {
+            let idToken = await core.getIDToken()
+            return idToken;
+        } catch (error) {
+            return null;
+        }
     }
 
 }

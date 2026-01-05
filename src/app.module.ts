@@ -7,8 +7,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { GithubModule } from './github/github.module';
 import path from 'node:path';
 
-const dirname = path.join(__dirname, '../.env');
-console.log(dirname);
+const dirname = path.join(__dirname, '../env-variables');
 
 @Module({
   imports: [

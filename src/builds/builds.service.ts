@@ -133,16 +133,16 @@ export class BuildsService implements OnApplicationBootstrap {
 
             const result = await request.json();
             if (!request.ok) {
-                spinner.text = 'Build failed...';
+                spinner.text = 'Upload failed...';
                 spinner.fail();
                 throw new Error(result.message);
             }
 
-            spinner.text = 'Build completed...';
+            spinner.text = 'Upload completed...';
             spinner.succeed();
             return result;
         } catch (error) {
-            spinner.text = 'Build failed...';
+            spinner.text = 'Upload failed...';
             spinner.fail();
             throw error;
         }

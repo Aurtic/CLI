@@ -1,10 +1,12 @@
 import { Command, CommandRunner, InquirerService, Option } from 'nest-commander';
 import { AuthenticationService } from './authentication.service';
+import { AuthenticationGithubCommand } from './authentication.github.command';
 
 @Command({
     name: 'login',
     arguments: '<username>',
-    description: 'Login using username and password credentials'
+    description: 'Login using username and password credentials',
+    subCommands: [AuthenticationGithubCommand]
 })
 export class AuthenticationCommand extends CommandRunner {
     constructor(
@@ -36,8 +38,6 @@ export class AuthenticationCommand extends CommandRunner {
             password = result.password;
         }
 
-        const accessToken = await this.authenticationService.getAccessTokenByUsernameAndPassword(username, password);
-
-        console.log(accessToken);
+        await this.authenticationService.getAccessTokenByUsernameAndPassword(username, password);
     }
 }
