@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import core from "@actions/core";
+import * as core from "@actions/core";
 
 @Injectable()
 export class GithubService {
 
     async retrieveGithubIDToken() {
         try {
-            let idToken = await core.getIDToken()
+            let idToken = await core.getIDToken('api.v2.aurtic.com')
             return idToken;
         } catch (error) {
             console.error(error);
