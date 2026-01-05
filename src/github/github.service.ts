@@ -9,6 +9,7 @@ export class GithubService {
             let idToken = await core.getIDToken()
             return idToken;
         } catch (error) {
+            console.error(error);
             return null;
         }
     }
