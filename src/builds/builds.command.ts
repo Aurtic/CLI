@@ -37,6 +37,7 @@ export class BuildsCommand extends CommandRunner {
     parsePath(val: string): string {
         return val;
     }
+    
     @Option({
         flags: '-v, --version [string]',
         description: 'Version name',
