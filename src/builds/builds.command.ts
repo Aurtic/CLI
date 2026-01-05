@@ -37,6 +37,13 @@ export class BuildsCommand extends CommandRunner {
     parsePath(val: string): string {
         return val;
     }
+    @Option({
+        flags: '-v, --version [string]',
+        description: 'Version name',
+    })
+    parseVersion(val?: string): string | undefined {
+        return val;
+    }
 
     @Option({
         flags: '-l, --local [boolean]',
@@ -71,7 +78,7 @@ export class BuildsCommand extends CommandRunner {
             throw new Error('Local builds are not supported yet');
         } else {
             const build = await this.buildsService.buildStreaming(serviceId, options);
-            if(options.follow) {
+            if (options.follow) {
                 await this.buildsService.followBuild(serviceId, build.id);
             }
         }
