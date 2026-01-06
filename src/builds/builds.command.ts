@@ -1,5 +1,6 @@
 import { Command, CommandRunner, Option } from 'nest-commander';
 import { BuildsService } from './builds.service';
+import { AuthenticationService } from '../authentication/authentication.service';
 
 @Command({
     name: 'build',
@@ -7,7 +8,10 @@ import { BuildsService } from './builds.service';
     description: 'A parameter parser example'
 })
 export class BuildsCommand extends CommandRunner {
-    constructor(private readonly buildsService: BuildsService) {
+    constructor(
+        private readonly buildsService: BuildsService,
+        private readonly authenticationService: AuthenticationService
+    ) {
         super();
     }
 
@@ -19,6 +23,15 @@ export class BuildsCommand extends CommandRunner {
     parseName(val: string | undefined): string | undefined {
         return val?.trim() || undefined;
     }
+
+    @Option({
+        flags: '-t, --tenant [string]',
+        description: 'Tenant ID to use',
+    })
+    parseTenantId(val: string): string {
+        return val;
+    }
+
 
     @Option({
         flags: '-d, --dockerfile [string]',
@@ -37,7 +50,7 @@ export class BuildsCommand extends CommandRunner {
     parsePath(val: string): string {
         return val;
     }
-    
+
     @Option({
         flags: '-v, --version [string]',
         description: 'Version name',
@@ -62,7 +75,8 @@ export class BuildsCommand extends CommandRunner {
     @Option({
         flags: '-f, --follow [boolean]',
         description: 'Follow the build logs and await the result',
-        defaultValue: false,
+        required: false,
+        defaultValue: true
     })
     parseFollow(val: string): boolean {
         const value = JSON.parse(val);
@@ -75,6 +89,9 @@ export class BuildsCommand extends CommandRunner {
 
     async run(passedParams: string[], options: Record<string, any>): Promise<void> {
         const serviceId = passedParams[0];
+        if (options.tenant) {
+            await this.authenticationService.setTenantId(options.tenant);
+        }
         if (options.local) {
             throw new Error('Local builds are not supported yet');
         } else {

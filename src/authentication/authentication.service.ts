@@ -70,6 +70,7 @@ export class AuthenticationService implements OnModuleInit {
         const configFile = JSON.parse(configFileContent);
         configFile.tenant_id = tenantId;
         fs.writeFileSync(configFilePath, JSON.stringify(configFile, null, 2));
+        this.configService.set('TENANT_ID', tenantId);
 
     }
 
