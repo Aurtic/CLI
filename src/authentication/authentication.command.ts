@@ -49,7 +49,7 @@ export class AuthenticationCommand extends CommandRunner {
         await this.authenticationService.getAccessTokenByUsernameAndPassword(username, password);
 
         if (options.tenant) {
-            await this.authenticationService.setTenantId(options.tenantId);
+            await this.authenticationService.setTenantId(options.tenant);
         }
     }
 }
