@@ -24,6 +24,14 @@ export class AuthenticationCommand extends CommandRunner {
         return val;
     }
 
+    @Option({
+        flags: '-t, --tenant [string]',
+        description: 'Tenant ID to use for the authentication',
+    })
+    parseTenantId(val: string): string {
+        return val;
+    }
+
 
     async run(passedParams: string[], options: Record<string, any>): Promise<void> {
         const username = passedParams[0];
@@ -39,5 +47,9 @@ export class AuthenticationCommand extends CommandRunner {
         }
 
         await this.authenticationService.getAccessTokenByUsernameAndPassword(username, password);
+
+        if (options.tenant) {
+            await this.authenticationService.setTenantId(options.tenantId);
+        }
     }
 }

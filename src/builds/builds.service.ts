@@ -28,9 +28,7 @@ export class BuildsService implements OnApplicationBootstrap {
             try {
                 request = await fetch(`${uri}/v1/services/${serviceId}/builds/${buildId}`, {
                     method: 'GET',
-                    headers: {
-                        'authorization': `Bearer ${await this.authenticationService.getAccessToken()}`,
-                    },
+                    headers: await this.getHeaders(),
                 });
             } catch (e) {
                 if (i > 10) {
@@ -87,6 +85,17 @@ export class BuildsService implements OnApplicationBootstrap {
         await recursion();
     }
 
+    async getHeaders() {
+        const headers: Record<string, string> = {
+            'authorization': `Bearer ${await this.authenticationService.getAccessToken()}`,
+        };
+        const tenantId = this.configService.get('TENANT_ID') as string|undefined;
+        if (tenantId) {
+            headers['x-tenant-id'] = tenantId;
+        }
+        return headers;
+    }
+
     async buildStreaming(serviceId: string, opts: {
         dockerfile?: string,
         path?: string,
@@ -131,9 +140,7 @@ export class BuildsService implements OnApplicationBootstrap {
             const request = await fetch(`${uri}/v1/services/${serviceId}/builds/streaming?${params.toString()}`, {
                 method: 'POST',
                 body: multiPartFormData,
-                headers: {
-                    'authorization': `Bearer ${await this.authenticationService.getAccessToken()}`,
-                },
+                headers: await this.getHeaders(),
             });
 
             const result = await request.json();
