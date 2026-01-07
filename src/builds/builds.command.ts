@@ -4,7 +4,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 
 @Command({
     name: 'build',
-    arguments: '<serviceId>',
+    arguments: '<serviceId> [containerId]',
     description: 'A parameter parser example'
 })
 export class BuildsCommand extends CommandRunner {
@@ -87,6 +87,10 @@ export class BuildsCommand extends CommandRunner {
 
     async run(passedParams: string[], options: Record<string, any>): Promise<void> {
         const serviceId = passedParams[0];
+        const containerId = passedParams[1];
+        if (containerId) {
+            options.container = containerId;
+        }
         if (options.tenant) {
             await this.authenticationService.setTenantId(options.tenant);
         }

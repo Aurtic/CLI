@@ -101,6 +101,7 @@ export class BuildsService implements OnApplicationBootstrap {
         path?: string,
         name?: string,
         version?: string,
+        container?: string,
     }) {
         const spinner = ora('Building...');
         spinner.start();
@@ -134,6 +135,10 @@ export class BuildsService implements OnApplicationBootstrap {
 
         if (opts.version) {
             params.set('version', opts.version);
+        }
+
+        if (opts.container) {
+            params.set('container', opts.container);
         }
 
         try {
