@@ -75,10 +75,8 @@ export class BuildsCommand extends CommandRunner {
     @Option({
         flags: '-f, --follow [boolean]',
         description: 'Follow the build logs and await the result',
-        required: false,
     })
     parseFollow(val: string): boolean {
-        if (val === '') return true;
         const value = JSON.parse(val);
         if (typeof value !== 'boolean') {
             throw new Error('Invalid boolean value');
