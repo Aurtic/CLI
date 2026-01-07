@@ -19,7 +19,9 @@ export class AuthenticationService implements OnModuleInit {
         const configFile = JSON.parse(configFileContent);
 
         this.configService.set('ACCESS_TOKEN', configFile.access_token);
-        this.configService.set('TENANT_ID', configFile.tenant_id || undefined);
+        if(configFile.tenant_id) {
+            this.configService.set('TENANT_ID', configFile.tenant_id);
+        }
     }
 
     getConfigFilePath(): string {
